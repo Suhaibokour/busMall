@@ -4,7 +4,7 @@ let leftImageElement = document.getElementById('leftImage');
 let middleImageElement = document.getElementById('middleImage');
 let rightImageElement = document.getElementById('rightImage');
 
-let maxClicks = 10;
+let maxClicks =25;
 let attemptsCounter = 0;
 let imageViews = 0;
 
