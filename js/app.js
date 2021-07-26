@@ -15,7 +15,11 @@ let leftImgIndex;
 let middleImgIndex;
 let rightImgIndex;
 
+let namesArr = [];
 
+let votesArr = [];
+
+let shownArr=[];
 
 function Product(name, src) {
     this.name = name;
@@ -26,6 +30,7 @@ function Product(name, src) {
 
 
     Product.all.push(this);
+    namesArr.push(this.name);
 }
 
 Product.all = [];
@@ -60,20 +65,29 @@ function randomIndex() {
 
 
 
+
+
+let numbers=[];
 function renderImages() {
     leftImgIndex = randomIndex();
     middleImgIndex = randomIndex();
     rightImgIndex = randomIndex();
-    while (leftImgIndex === middleImgIndex || leftImgIndex === rightImgIndex || middleImgIndex === rightImgIndex) {
+    while (leftImgIndex === middleImgIndex || leftImgIndex === rightImgIndex || middleImgIndex === rightImgIndex || numbers.includes(leftImageElement.src) || numbers.includes(middleImageElement.src ) || numbers.includes(rightImageElement.src)) {
         leftImgIndex = randomIndex();
         middleImgIndex = randomIndex();
+        console.log(numbers);
+        
     }
 
 
     leftImageElement.src = Product.all[leftImgIndex].source;
     middleImageElement.src = Product.all[middleImgIndex].source;
     rightImageElement.src = Product.all[rightImgIndex].source;
-
+    numbers=[];
+    numbers.push(Product.all[leftImgIndex].source);
+    numbers.push(Product.all[middleImgIndex].source);
+    numbers.push(Product.all[rightImgIndex].source);
+    
 
     Product.all[leftImgIndex].views++;
     Product.all[middleImgIndex].views++;
@@ -81,6 +95,7 @@ function renderImages() {
     imageViews++;
 }
 renderImages();
+
 
 
 
@@ -126,14 +141,20 @@ function userClicking(event) {
                 productList.textContent = `${Product.all[i].name} has ${Product.all[i].votes} votes and it has been shown ${Product.all[i].views}`
             }
             divImageElement.removeEventListener('click', userClicking);
+            divImageElement.removeEventListener('click',resultFun);
+            btn.removeEventListener("click",resultFun);
             
 
         });
         results.appendChild(btn);
-
-        //btn.removeEventListener("click",resultFun());
         
-
+for (let i =0;i<Product.all.length;i++){
+    votesArr.push(Product.all[i].votes);
+    shownArr.push(Product.all[i].views);
+}
+       
+        
+        showChart()
 
 
 
@@ -149,3 +170,78 @@ function userClicking(event) {
     }
 
 }
+
+
+function showChart() {
+
+    const data = {
+      labels: namesArr,
+      datasets: [{
+        label: 'Votes',
+        data: votesArr,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 205, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(201, 203, 207, 0.2)'
+        ],
+        borderColor: [
+          'rgb(255, 99, 132)',
+          'rgb(255, 159, 64)',
+          'rgb(255, 205, 86)',
+          'rgb(75, 192, 192)',
+          'rgb(54, 162, 235)',
+          'rgb(153, 102, 255)',
+          'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+      },
+      {
+        label: 'Shown',
+        data: shownArr,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 205, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(201, 203, 207, 0.2)'
+        ],
+        borderColor: [
+          'rgb(255, 99, 132)',
+          'rgb(255, 159, 64)',
+          'rgb(255, 205, 86)',
+          'rgb(75, 192, 192)',
+          'rgb(54, 162, 235)',
+          'rgb(153, 102, 255)',
+          'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+      }
+    
+    ]
+    };
+  
+    const config = {
+      type: 'bar',
+      data: data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      },
+    };
+  
+  
+    var myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+  
+  }
