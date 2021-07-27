@@ -75,7 +75,7 @@ function renderImages() {
     while (leftImgIndex === middleImgIndex || leftImgIndex === rightImgIndex || middleImgIndex === rightImgIndex || numbers.includes(leftImgIndex) || numbers.includes(middleImgIndex) || numbers.includes(rightImgIndex)) {
         leftImgIndex = randomIndex();
         middleImgIndex = randomIndex();
-        console.log(numbers);
+        rightImgIndex = randomIndex();
         
     }
 
