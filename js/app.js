@@ -72,7 +72,7 @@ function renderImages() {
     leftImgIndex = randomIndex();
     middleImgIndex = randomIndex();
     rightImgIndex = randomIndex();
-    while (leftImgIndex === middleImgIndex || leftImgIndex === rightImgIndex || middleImgIndex === rightImgIndex || numbers.includes(leftImageElement.src) || numbers.includes(middleImageElement.src ) || numbers.includes(rightImageElement.src)) {
+    while (leftImgIndex === middleImgIndex || leftImgIndex === rightImgIndex || middleImgIndex === rightImgIndex || numbers.includes(leftImgIndex) || numbers.includes(middleImgIndex) || numbers.includes(rightImgIndex)) {
         leftImgIndex = randomIndex();
         middleImgIndex = randomIndex();
         console.log(numbers);
@@ -83,10 +83,8 @@ function renderImages() {
     leftImageElement.src = Product.all[leftImgIndex].source;
     middleImageElement.src = Product.all[middleImgIndex].source;
     rightImageElement.src = Product.all[rightImgIndex].source;
-    numbers=[];
-    numbers.push(Product.all[leftImgIndex].source);
-    numbers.push(Product.all[middleImgIndex].source);
-    numbers.push(Product.all[rightImgIndex].source);
+    numbers=[leftImgIndex,middleImgIndex,rightImgIndex ];
+    
     
 
     Product.all[leftImgIndex].views++;
