@@ -31,7 +31,7 @@ function Product(name, src) {
 
   Product.all.push(this);
   namesArr.push(this.name);
- 
+
 }
 
 Product.all = [];
@@ -127,7 +127,7 @@ function userClicking(event) {
     }
     updateStorage();
     renderImages();
-    
+
   } else {
 
     // The button code is from sebhastian.com
@@ -154,9 +154,9 @@ function userClicking(event) {
     for (let i = 0; i < Product.all.length; i++) {
       votesArr.push(Product.all[i].votes);
       shownArr.push(Product.all[i].views);
-      
+
     }
-    
+
     // updateStorage()
     showChart()
 
@@ -189,10 +189,10 @@ function updateStorage() {
 
   // let stringArr2 = JSON.stringify(votesArr);
   // localStorage.setItem('votes', stringArr2);
-  
+
   // let stringArr3 = JSON.stringify(shownArr);
   // localStorage.setItem('views', stringArr3);
-console.log('updateStorage')
+  console.log('updateStorage')
 }
 
 
@@ -200,34 +200,38 @@ console.log('updateStorage')
 function productsVotes() {
   let data = localStorage.getItem('product');
   let parsedArr = JSON.parse(data);
-console.log(parsedArr)
+  console.log(parsedArr)
 
-//   let data2 = localStorage.getItem('votes');
-//   let parsedArr2 = JSON.parse(data2);
-// console.log(parsedArr2)
+  //   let data2 = localStorage.getItem('votes');
+  //   let parsedArr2 = JSON.parse(data2);
+  // console.log(parsedArr2)
 
-//   let data3 = localStorage.getItem('views');
-//   let parsedArr3 = JSON.parse(data3);
-// console.log(parsedArr3)
+  //   let data3 = localStorage.getItem('views');
+  //   let parsedArr3 = JSON.parse(data3);
+  // console.log(parsedArr3)
 
 
 
 
   // if the first time coming to the page, make sure there will be data in the storage and then make it equal to the Prudocts.all
 
-  if (parsedArr !== null || parsedArr2 !== null || parsedArr3 !== null) {
+  if (parsedArr !== null) {
 
     // YOU can either do this But it wont have the prototype methods
-    Product.all = parsedArr;
+    // Product.all = parsedArr;
     // votesArr=parsedArr2;
     // shownArr=parsedArr3;
 
     // OR YOU DO reinstantiation TO HAVE THE PROTOTYPE AGAIN
+    Product.all = [];
+    for (let i = 0; i < parsedArr.length; i++) {
+      let newProduct = new Product(parsedArr[i].name, parsedArr[i].source);
 
-    // for (let i = 0; i < parsedArr.length; i++) {
-    //   new Product(parsedArr[i].name, parsedArr[i].src);
-    // }
-    
+      newProduct.votes = parsedArr[i].votes;
+      newProduct.views = parsedArr[i].views;
+      newProduct.cool();
+    }
+
   }
 
 
@@ -240,7 +244,9 @@ console.log(parsedArr)
 
 
 
-
+Product.prototype.cool = function () {
+  console.log('Cool item');
+}
 
 
 
